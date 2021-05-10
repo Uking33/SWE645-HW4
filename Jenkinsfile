@@ -6,7 +6,7 @@ pipeline {
 		script {
 		    checkout scm
 		    sh 'echo ${BUILD_TIMESTAMP}'
-		    dir("./SWE645-HW4-AngularApp"){
+		    dir("./SWE645-HW4-Angular"){
 		    	sh 'docker container prune'
 		        withCredentials([usernamePassword(credentialsId: 'docker-pass', passwordVariable: 'password', usernameVariable: 'username')]){
 		            sh "cd  | docker login -u ${username} -p ${password}"
@@ -18,7 +18,7 @@ pipeline {
 	}
 	stage('Pushing AngularApp Image to DockerHub') {
 	    steps {
-	        dir("./SWE645-HW4-AngularApp"){
+	        dir("./SWE645-HW4-Angular"){
 	            script {
 	                sh 'docker push liyuqin33/angular645:${BUILD_TIMESTAMP}'
 	            }
@@ -27,7 +27,7 @@ pipeline {
 	}
         stage('Deloying to Rancher as pods') {
             steps {
-	        dir("./SWE645-HW4-AngularApp"){
+	        dir("./SWE645-HW4-Angular"){
                     sh 'kubectl set image deployment/student-survey student-survey=liyuqin33/angular645:${BUILD_TIMESTAMP} -n swe645-hw3'
 	        }
             }
