@@ -9,7 +9,7 @@ import {DataExchangeService} from '../data-exchange.service';
 })
 export class SurveyComponent implements OnInit {
   //url = 'http://localhost:4200/RestApi/api/insert';
-  url = 'http://52.87.239.231:9093/';
+  url = 'http://52.87.239.231:30000/RestApi/api/insert';
   httpOptions = {
     headers: new HttpHeaders({
       'Content-Type': 'application/x-www-form-urlencoded',
